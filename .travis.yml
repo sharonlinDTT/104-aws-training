@@ -5,7 +5,7 @@ branches:
   only: master
 env:
   global:
-  - S3_BUCKET_NAME=sharon-test-bucket
+  - S3_NAME=sharon-test-bucket
   - CODEDEPLOY_APPLICATION=sharon-codedeploy-app
   - CODEDEPLOY_GROUP=sharon-codedeploy-group
   - REGION=ap-northeast-1
@@ -18,7 +18,7 @@ script:
 - mv release.zip ${LOCAL_DIR}/
 deploy:
 - provider: s3
-  bucket: "$S3_BUCKET_NAME"
+  bucket: "$S3_NAME"
   access_key_id: "$AWS_ACCESS_KEY_ID"
   secret_access_key: "$AWS_SECRET_ACCESS_KEY"
   local_dir: "$LOCAL_DIR"
@@ -27,7 +27,7 @@ deploy:
   on:
     branch: master
 - provider: codedeploy
-  bucket: "$S3_BUCKET_NAME"
+  bucket: "$S3_NAME"
   access_key_id: "$AWS_ACCESS_KEY_ID"
   secret_access_key: "$AWS_SECRET_ACCESS_KEY"
   key: release.zip
